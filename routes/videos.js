@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const router = express.Router() 
+const router = express.Router()
 const fs = require('fs')
 const { v4: uuidv4 } = require('uuid');
 
@@ -16,10 +16,10 @@ router.get("/", (req, res, next) => {
     const videos = readVideosFile();
     res.json(videos);
 });
-
-router.get('/videos/:id', (req, res) => {
-    const videoId = [req.params.id];
-    const video = videos.find(video => video.id === videoId);
+router.get('/:id', (req, res) => {
+    const videos = readVideosFile();
+    // const videoId = req.params.id;
+    const video = videos.find((video) => video.id === req.params.id);
     if (video) {
         res.json(video);
     } else {
@@ -27,7 +27,8 @@ router.get('/videos/:id', (req, res) => {
     }
 });
 
-router.post("/", (req, res) => {    
+
+router.post("/comments", (req, res) => {    
     console.log(req.body);
     const newVideo = {
         id: uuidv4(),

@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors')
 const videosRoutes = require('./routes/videos')
 // require('dotenv').config()
-// const { PORT } = process.env.
+// const { PORT } = process.env.PORT || 3000;
 
 // Use cors middleware to allow cross-origin requests
 app.use(cors())
@@ -18,12 +18,13 @@ app.use((req, res, next) => {
 });
 
 // Serve static files in the public-images directory
-app.use("/public-images", express.static("./public"));
+app.use("/videos", express.static("/public-images"));
 
 // Define routes for videos
 app.use("/videos", videosRoutes);
+app.use("/videos/:id", videosRoutes)
 
 // Start the server
 app.listen(8080, () => {
-    console.log("Server is running on port ");
+    console.log(`Server is running on port `);
 });
